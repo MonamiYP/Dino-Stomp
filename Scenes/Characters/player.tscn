@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bni51daik4b8o"]
+
+[ext_resource type="PackedScene" uid="uid://bdl1qf4ami3d4" path="res://3D models/Characters/stegosaurus_rigged.fbx" id="1_3o88j"]
+[ext_resource type="Script" path="res://Scenes/Characters/player.gd" id="1_wfyst"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d1dwx"]
+size = Vector3(1.53668, 1.31909, 0.620972)
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_wfyst")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Stegosaurus" parent="Pivot" instance=ExtResource("1_3o88j")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.059906, 0.623694, 0.00531006)
+shape = SubResource("BoxShape3D_d1dwx")
