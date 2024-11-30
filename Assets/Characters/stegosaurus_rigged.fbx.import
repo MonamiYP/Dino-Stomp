@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bdl1qf4ami3d4"
-path="res://.godot/imported/stegosaurus_rigged.fbx-be16c00ca69651d3c9868d7a7f5b3c4e.scn"
+path="res://.godot/imported/stegosaurus_rigged.fbx-d821a24a6ae34b2191824f8f25ebaa17.scn"
 
 [deps]
 
-source_file="res://3D models/Characters/stegosaurus_rigged.fbx"
-dest_files=["res://.godot/imported/stegosaurus_rigged.fbx-be16c00ca69651d3c9868d7a7f5b3c4e.scn"]
+source_file="res://Assets/Characters/stegosaurus_rigged.fbx"
+dest_files=["res://.godot/imported/stegosaurus_rigged.fbx-d821a24a6ae34b2191824f8f25ebaa17.scn"]
 
 [params]
 

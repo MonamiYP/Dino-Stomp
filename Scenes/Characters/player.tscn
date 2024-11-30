@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bni51daik4b8o"]
+[gd_scene load_steps=7 format=3 uid="uid://bni51daik4b8o"]
 
-[ext_resource type="PackedScene" uid="uid://bdl1qf4ami3d4" path="res://3D models/Characters/stegosaurus_rigged.fbx" id="1_3o88j"]
-[ext_resource type="Script" path="res://Scenes/Characters/player.gd" id="1_wfyst"]
+[ext_resource type="PackedScene" uid="uid://bdl1qf4ami3d4" path="res://Assets/Characters/stegosaurus_rigged.fbx" id="1_3o88j"]
+[ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_wfyst"]
+[ext_resource type="Script" path="res://Scripts/State Machine/playerIdle.gd" id="3_ey3lr"]
+[ext_resource type="Script" path="res://Scripts/State Machine/stateMachine.gd" id="3_g0tcj"]
+[ext_resource type="Script" path="res://Scripts/State Machine/playerWalk.gd" id="5_k1w04"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1dwx"]
 size = Vector3(1.53668, 1.31909, 0.620972)
@@ -17,3 +20,17 @@ script = ExtResource("1_wfyst")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.059906, 0.623694, 0.00531006)
 shape = SubResource("BoxShape3D_d1dwx")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_g0tcj")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("sprite", "player")]
+script = ExtResource("3_ey3lr")
+sprite = NodePath("../../Pivot/Stegosaurus")
+player = NodePath("../..")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("sprite", "player")]
+script = ExtResource("5_k1w04")
+sprite = NodePath("../../Pivot/Stegosaurus")
+player = NodePath("../..")
