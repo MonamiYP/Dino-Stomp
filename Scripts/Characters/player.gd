@@ -1,28 +1,30 @@
 extends CharacterBody3D
 
-#@export var speed = 5
-#@export var fall_acceleration = 75
-#
-#@onready var animation = $"Pivot/Stegosaurus/AnimationPlayer"
+@export var Projectile : PackedScene
 
-#var target_velocity = Vector3.ZERO
-#
-#func _physics_process(delta: float) -> void:
-	#get_input()
-	#
-	#if velocity != Vector3.ZERO:
-		#velocity = velocity.normalized() * speed
-		#$Pivot.basis = Basis.looking_at(velocity)
-#
-	#if not is_on_floor():
-		#velocity.y = velocity.y - (fall_acceleration * delta)
-	#
-	#if velocity.x || velocity.z:
-		#animation.play("rig|Walk", -1, 6.0)
-	#else:
-		#animation.play("rig|Idle_001")
-		#
-	#move_and_slide()
-#
-func _physics_process(delta: float) -> void:
-	move_and_slide()
+@onready var projectileTimer : Timer = $ProjectileTimer
+
+var projectile_speed : float = 5.0
+var sec_between_shot : float = 0.2
+var can_shoot : bool = true
+
+func _ready() -> void:
+	projectileTimer.wait_time = sec_between_shot
+
+func _process(delta: float) -> void:
+	if(Input.is_action_just_pressed("attack")):
+		shoot()
+
+func shoot() -> void:
+	if can_shoot:
+		var new_projectile : Node3D = Projectile.instantiate()
+		new_projectile.global_transform = $Pivot/FiringMouth.global_transform
+		new_projectile.speed = projectile_speed
+		var scene_root : Node3D = get_tree().get_root().get_children()[0]
+		scene_root.add_child(new_projectile)
+		
+		can_shoot = false
+		projectileTimer.start()
+
+func _on_projectile_timer_timeout() -> void:
+	can_shoot = true

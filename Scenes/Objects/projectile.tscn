@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://busmcavcd23i1"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/projectile.gd" id="1_tp71b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idmdn"]
+albedo_color = Color(0.878431, 0.207843, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ajhr0"]
+material = SubResource("StandardMaterial3D_idmdn")
+size = Vector3(1, 1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21n5v"]
+size = Vector3(0.126465, 0.238953, 0.487122)
+
+[node name="Projectile" type="Node3D"]
+script = ExtResource("1_tp71b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.18557e-08, 2.18557e-08, -0.5, 0.5, 9.55343e-16, -2.18557e-08, 0, -0.5, -2.18557e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_ajhr0")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00512695, 0.000762939, 0.00411987)
+shape = SubResource("BoxShape3D_21n5v")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

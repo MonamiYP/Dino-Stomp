@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bni51daik4b8o"]
+[gd_scene load_steps=8 format=3 uid="uid://bni51daik4b8o"]
 
 [ext_resource type="PackedScene" uid="uid://bdl1qf4ami3d4" path="res://Assets/Characters/stegosaurus_rigged.fbx" id="1_3o88j"]
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_wfyst"]
+[ext_resource type="PackedScene" uid="uid://busmcavcd23i1" path="res://Scenes/Objects/projectile.tscn" id="2_hd6hl"]
 [ext_resource type="Script" path="res://Scripts/State Machine/playerIdle.gd" id="3_ey3lr"]
 [ext_resource type="Script" path="res://Scripts/State Machine/stateMachine.gd" id="3_g0tcj"]
 [ext_resource type="Script" path="res://Scripts/State Machine/playerWalk.gd" id="5_k1w04"]
@@ -12,8 +13,12 @@ size = Vector3(1.53668, 1.31909, 0.620972)
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_wfyst")
+Projectile = ExtResource("2_hd6hl")
 
 [node name="Pivot" type="Node3D" parent="."]
+
+[node name="FiringMouth" type="Marker3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0222352, 1.3857, 9.7193e-10)
 
 [node name="Stegosaurus" parent="Pivot" instance=ExtResource("1_3o88j")]
 
@@ -34,3 +39,8 @@ player = NodePath("../..")
 script = ExtResource("5_k1w04")
 sprite = NodePath("../../Pivot/Stegosaurus")
 player = NodePath("../..")
+
+[node name="ProjectileTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ProjectileTimer" to="." method="_on_projectile_timer_timeout"]
